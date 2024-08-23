@@ -1,0 +1,6 @@
+module.exports.categoriescontroller = require("./categories.controller")
+module.exports.subcategoriescontroller = require("./subcategoris.controller")
+module.exports.productsController = require("./products.controller")
+module.exports.variantsControlle = require("./variants.controller")
+module.exports.salespeoleControlle = require("./salespeople.controller")
+module.exports.usersControlle =  require("./users.controller")
