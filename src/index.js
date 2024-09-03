@@ -9,7 +9,7 @@ const {googleprovaider, facebookProvider} = require("./utliy/provaider");
 const connectChat = require("./utliy/soketIo");
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-
+const path = require('path')
 const _dirname = path.resolve();
 
 const __swaggerDistPath = path.join(_dirname, 'node_modules', 'swagger-ui-dist'); //install swagger-ui-dist
@@ -29,9 +29,10 @@ app.use(
 );
 const app = express();
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors({
+      // origin : 'https://fruitables-client.vercel.app',
     origin: 'http://localhost:3000',
     credentials:true
 }));
@@ -46,6 +47,10 @@ facebookProvider();
 connectChat()
 app.use("/api/v1", routes);
 
+app.get("/", (req,res) => {
+    res.send("Hello, World!");
+  })
+  
 app.listen(8000, () => {
     console.log("Server started at port 8000");
 });

@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "build": "echo \"No build step needed for this project.\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "nodemon": "^3.1.1"
   },
   "dependencies": {
@@ -31,6 +33,7 @@
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "pdfmake": "^0.2.10",
+    "socket.io-client": "^4.7.5",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
   }
