@@ -1,4 +1,4 @@
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const Users = require('../models/users.models');
 
 const auth = (roles=[]) => async(req,res,next) => {

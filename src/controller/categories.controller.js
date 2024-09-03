@@ -1,5 +1,5 @@
-const { Uplodfolderimg } = require("../../../../frontend/fruitables/src/utils/cloudinary");
-const Categories = require("../models/categories.models")
+// const { Uplodfolderimg } = require("../../../../frontend/fruitables/src/utils/cloudinary");
+const Categories = require("../models/categories.models");
 
 const listcategories = async (req, res) => {
     console.log("jdhgfndjhdjdjdjjjuh",req.query.page,req.query.pageSize);

@@ -10,9 +10,25 @@ const connectChat = require("./utliy/soketIo");
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 
+const _dirname = path.resolve();
 
+const __swaggerDistPath = path.join(_dirname, 'node_modules', 'swagger-ui-dist'); //install swagger-ui-dist
+
+const swaggerDocument = YAML.load(path.resolve('./pablic', 'api.yaml'));
+
+
+app.use(
+  '/api/docs',
+  express.static(__swaggerDistPath, { index: false }), // Serve Swagger UI assets
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      url: '/pablic/api.yaml' // Path to your YAML file
+    }
+  })
+);
 const app = express();
-const swaggerDocument =  YAML.load('./src/api.yaml');
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors({
