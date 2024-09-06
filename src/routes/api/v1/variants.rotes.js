@@ -38,5 +38,36 @@ router.delete(
     '/delete-variant/:variant_id',
     variantsControlle.deleteVariant
 )
+router.get('/product/:product_id',
+    variantsControlle. Variantdetails
+);
+
+router.get('/list-variant/:product_id',
+    variantsControlle. variantparticularproduct
+);
+
+router.get('/count-stock/:product_id',
+    variantsControlle. countstock
+);
+
+router.get('/low-quantity',
+    variantsControlle. productslowstock
+);
+
+router.get('/high-price',
+    variantsControlle. productswithhighesprices
+);
+
+router.get('/multiple-variants',
+    variantsControlle. morethanonevariant
+);
+
+router.get('/active',
+    variantsControlle. activevarint
+);
+
+router.get('/count-products',
+    variantsControlle. countptoduct
+);
 
 module.exports = router

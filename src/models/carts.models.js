@@ -2,15 +2,16 @@ const mongoose = require("mongoose")
 
 const itemSchema = new mongoose.Schema(
     {
-        item_id: {
+        product_id: {
             type: mongoose.Types.ObjectId,
             ref: "Products",
-            required: true
+            required: true,
         },
         quantity: {
             type: Number,
-            required: true
-        }
+            required: true,
+            default: 1,
+        },
     }
 )
 
@@ -19,18 +20,17 @@ const cartschema = new mongoose.Schema(
         user_id: {
             type: mongoose.Types.ObjectId,
             ref: "Users",
-            required: true
+            required: true,
         },
-        subcategory_id: {
-            type: mongoose.Types.ObjectId,
-            ref: "Subcategories",
-            required: true
+        items: [itemSchema],
+        isActive: {
+            type: Boolean,
+            default: true,
         },
-        items: [itemSchema]
     },
     {
         timestamps: true,
-        versionKey: false
+        versionKey: false,
     }
 )
 

@@ -10,29 +10,33 @@ const connectChat = require("./utliy/soketIo");
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const path = require('path')
+
 const _dirname = path.resolve();
 
 const __swaggerDistPath = path.join(_dirname, 'node_modules', 'swagger-ui-dist'); //install swagger-ui-dist
 
-const swaggerDocument = YAML.load(path.resolve('./pablic', 'api.yaml'));
+const swaggerDocument = YAML.load(path.resolve('./public', 'api.yaml'));
 
+const app = express();
 
+googleprovaider();
+facebookProvider();
 app.use(
   '/api/docs',
   express.static(__swaggerDistPath, { index: false }), // Serve Swagger UI assets
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     swaggerOptions: {
-      url: '/pablic/api.yaml' // Path to your YAML file
+      url: '/public/api.yaml' // Path to your YAML file
     }
   })
 );
-const app = express();
+
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors({
-      // origin : 'https://fruitables-client.vercel.app',
+      // origin : 'https://frutebalse-clinetside-sjht.vercel.app/',
     origin: 'http://localhost:3000',
     credentials:true
 }));
@@ -42,17 +46,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 connectDB();
-googleprovaider();
-facebookProvider();
+
 connectChat()
-app.use("/api/v1", routes);
+
 
 app.get("/", (req,res) => {
     res.send("Hello, World!");
   })
-  
-app.listen(8000, () => {
-    console.log("Server started at port 8000");
+  app.use("/api/v1", routes);
+
+  app.listen(8001, () => {
+    console.log("Server started at port 8001");
 });
 
 

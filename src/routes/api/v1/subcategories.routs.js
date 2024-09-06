@@ -12,7 +12,7 @@ subcategoriescontroller.getsubcategory
 )
 
 routes.get('/getsubCategorybyCategory/:category_id', 
-subcategoriescontroller.getsubCategorybyCategory
+    subcategoriescontroller.getsubCategorybyCategory
 )
 
 routes.post('/add-subcategories',
@@ -22,13 +22,27 @@ subcategoriescontroller.addsubcategory
 routes.put('/put-subcategories/:subcategory_id',
 subcategoriescontroller.putsubcategories
 )
-
-routes.delete('/delete-subcategories/:subcategorydelete_id', 
-subcategoriescontroller.deletesubcategory
-
+routes.get('/getsubcategoridata-by-categorydata/:categori_id',
+    subcategoriescontroller.getsubcategoridatawith
 )
-routes.get('/subcategory/count-active  ', 
-    subcategoriescontroller.countactive
-    
-    )
+
+
+routes.get("/inactive",
+    subcategoriescontroller.inactivesubcategory
+)
+
+routes.get('/parent-of-subcategory/:categori_id',
+    subcategoriescontroller.subcategorioncategory
+)
+
+routes.get('/count-active',
+    subcategoriescontroller.activesubcategory
+)
+
+routes.get('/most-products',
+    subcategoriescontroller.highestcategori
+)
+routes.get('/count-products',
+    subcategoriescontroller.productwithsubcategori
+)
 module.exports = routes;

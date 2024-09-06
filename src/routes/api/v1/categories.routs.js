@@ -8,7 +8,7 @@ const auth = require("../../../middel_vare/auth");
 const routes = express.Router();
 
 routes.get('/categories-list',  
-   auth("admin","user"),
+//    auth("admin","user"),
     categoriescontroller.listcategories,
    
 )
@@ -57,5 +57,4 @@ routes.get(
     '/countsubcategories',
     categoriescontroller.countsubcategories
 )
-
 module.exports = routes;

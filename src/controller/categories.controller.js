@@ -1,5 +1,5 @@
 // const { Uplodfolderimg } = require("../../../../frontend/fruitables/src/utils/cloudinary");
-const Categories = require("../models/categories.models");
+const Categories = require("../models/categories.models")
 
 const listcategories = async (req, res) => {
     console.log("jdhgfndjhdjdjdjjjuh",req.query.page,req.query.pageSize);
@@ -11,11 +11,9 @@ const listcategories = async (req, res) => {
         if(page<=0||pageSize<=0){
             res.status(404).json({
                 success: false,
-                message: "page or pagesi`ze gretar"
+                message: "page or pagesize gretar"
             })
         }
-
-        
         const categories = await Categories.find();
 
         if (!categories || categories.length === 0) {
@@ -54,39 +52,39 @@ const addcategories = async (req, res) => {
    console.log("vgvgfgfgf",req.body);
    
     
-    // try {
+    try {
 
-    //     // console.log(req.file);
-    //     // console.log(req.body);
-    //     // const fileRes=await Uplodfolderimg(req.file.path,"cateegory");
-    //     // console.log(fileRes);
-    //     const category = await Categories.create({
-    //         ...req.body,
-    //         // category_img:{
-    //         //     public_id:fileRes.public_id,
-    //         //     url:fileRes.url
-    //         // }
-    //     })
-    //     console.log(category);
+        // console.log(req.file);
+        // console.log(req.body);
+        // const fileRes=await Uplodfolderimg(req.file.path,"cateegory");
+        // console.log(fileRes);
+        const category = await Categories.create({
+            ...req.body,
+            // category_img:{
+            //     public_id:fileRes.public_id,
+            //     url:fileRes.url
+            // }
+        })
+        console.log(category);
 
-    //     if (!category) {
-    //         res.status(400).json({
-    //             success: false,
-    //             message: "Category not Created"
-    //         })
-    //     }
+        if (!category) {
+            res.status(400).json({
+                success: false,
+                message: "Category not Created"
+            })
+        }
 
-    //     res.status(201).json({
-    //         success: true,
-    //         message: "Category Created succesfully",
-    //         data: category
-    //     })
-    // } catch (error) {
-    //     res.status(500).json({
-    //         success: false,
-    //         message: "internal server error" + error.message
-    //     })
-    // }
+        res.status(201).json({
+            success: true,
+            message: "Category Created succesfully",
+            data: category
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "internal server error" + error.message
+        })
+    }
 }
 const deletecategories = async (req, res) => {
     try {
@@ -234,7 +232,7 @@ const totalproduct = async (req, res) => {
     try {
         const category = await Categories.aggregate(
            
-           [
+ [
     
  {
      "$lookup": {
@@ -251,9 +249,7 @@ const totalproduct = async (req, res) => {
        "productName": "$products"
      }
    }
- ]
-
-        );
+ ]);
     
         res.status(200).json({
             success: true,

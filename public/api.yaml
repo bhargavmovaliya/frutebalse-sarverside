@@ -1,0 +1,1699 @@
+openapi: 3.0.0
+info:
+  title: Fruitables API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local server
+  - url: http://example.com
+    description: Optional server description, e.g. Internal staging server for testing
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []      
+paths:
+  /users/ragister:
+    post:
+      summary: user ragistration.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - users
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                avtar:
+                  type: string
+                  format: binary  
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /users/login:
+    post:
+      summary: user login.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /users/logout:
+    post:
+      summary: user logout.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /users/newtoken:
+    post:
+      summary: user newtoken.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - users
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string                                
+  /users/googleLogin:
+    get:
+      summary: user googleLogin.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - users
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string     
+  /categories/categories-list:
+    get:
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: integer
+          description: page no 
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          description: page size
+      summary: user categories list.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - Categories
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string       
+  /categories/categories-update/{category_id}:
+    put:
+      parameters:
+        - in: path
+          name: category_id
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          required: true
+          description: category id
+      summary: user categories update.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string 
+                discription:
+                  type: string    
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string                            
+  /categories/categories-add:
+    post:
+      summary: Add .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - Categories
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string   
+  /categories/categories-delete/{category_id}:
+    delete:
+      summary: delete .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - Categories
+      parameters:
+        - in: path
+          name: category_id
+          schema:
+            type: string
+          required: true
+          description: delete category.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string      
+  /categories/count-active:
+    get:
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: integer
+          description: page no 
+        - in: qr
+          name: pageSize
+          schema:
+            type: integer
+          description: page size
+      summary: user categories list.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - Categories
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string 
+  /subcategories/put-subcategories/{subcategory_id}:
+    put:
+      parameters:
+        - in: path
+          name: subcategory_id
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          required: true
+          description: subcategory id
+      summary: user categories update.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - subcategories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string 
+                discription:
+                  type: string    
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string                            
+  /subcategories/add-subcategories:
+    post:
+      summary: Add .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - subcategories
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string   
+  /subcategories/delete-subcategories/{subcategorydelete_id}:
+    delete:
+      summary: delete .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - subcategories
+      parameters:
+        - in: path
+          name: subcategory_id
+          schema:
+            type: string
+          required: true
+          description: delete .
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /subcategories/subcategorieslist:
+    get:
+      summary: delete .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - subcategories
+      parameters:
+        - in: path
+          name: category_id
+          schema:
+            type: string
+          required: true
+          description: delete category.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /subcategories/get-subcategory/{subcategori_id}:
+    get:
+      summary: subcategori get.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - subcategories  
+      parameters:
+        - in: path
+          name: subcategori_id
+          schema:
+            type: string
+          required: true
+          description: subcategori get suss
+          
+      responses:
+        '200':
+          description: subcategory in a specific category.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: string
+  /subcategories/parent-of-subcategory/{categori_id}:
+    get:
+      summary: category of subcategory.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - subcategories  
+      parameters:
+        - in: path
+          name: categori_id
+          schema:
+            type: string
+          required: true
+          description: category of subcategory
+          
+      responses:
+        '200':
+          description: subcategory in a specific category.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: string
+  /subcategories/count-active:
+    get:
+      summary:  total count of active subcategories.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - subcategories
+      responses:
+        '200':
+          description:  total count of active subcategories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description:  total count of active subcategories.  
+  /subcategories/most-products:
+    get:
+      summary: subcategories with the highest number of products..
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - subcategories
+      responses:
+        '200':
+          description: subcategories with the highest number of products.
+          content:
+            application/json:
+              schema:
+                type: object            
+  /subcategories/inactive:
+    get:
+      summary: list of inactive subcategories..
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - subcategories
+      responses:
+        '200':
+          description: list of inactive subcategories.
+          content:
+            application/json:
+              schema:
+                type: object 
+              properties:
+                  match:
+                    type: integer
+                    description: The number of active categories.      
+  /subcategories/count-products:
+    get:
+      summary: count of products for each subcategory.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - subcategories
+      responses:
+        '200':
+          description: count of products for each subcategory.
+          content:
+            application/json:
+              schema:
+                type: object
+              properties:
+                  count:
+                    type: integer
+                    description: count of products for each subcategory.   
+
+  /products/list-products:
+    get:
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+          description: The numbers of items to return
+      summary: list products.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - products
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /products/update-products/{product_id}:
+    put:
+      parameters:
+        - in: path
+          name: product_id
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          required: true
+          description: product_id
+      summary: user categories update.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string 
+                discription:
+                  type: string    
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string                            
+  /products/add-products:
+    post:
+      summary: Add .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - products
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string   
+  /products/delete-products/{product_id}:
+    delete:
+      summary: delete .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: product_id
+          schema:
+            type: string
+          required: true
+          description: delete category.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /products/list-products:
+    get:
+      summary: delete .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - products
+      parameters:
+        - in: path
+          name: product_id
+          schema:
+            type: string
+          required: true
+          description: delete category.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /products/search:
+    get:
+      summary: search.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - products  
+      parameters:
+        - in: path
+          name: product_id
+          schema:
+            type: string
+          required: true
+          description: search
+          
+      responses:
+        '200':
+          description: products get.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: string
+  /products/list-category/{categori_id}:
+    get:
+      summary: products by category.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - products  
+      parameters:
+        - in: path
+          name: categori_id
+          schema:
+            type: string
+          required: true
+          description: roducts by category
+          
+      responses:
+        '200':
+          description: roducts by category.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: strin
+  /products/list-subcategory/{subcategori_id}:
+      get:
+        summary: products by subcategory.
+        description: Optional extended description in CommonMark or HTML.
+        tags:
+          - products  
+        parameters:
+          - in: path
+            name: subcategori_id
+            schema:
+              type: string
+            required: true
+            description: products by subcategory
+            
+        responses:
+          '200':
+            description: products by subcategory.
+            content:
+              application/json:
+                schema:
+                  type: array
+                items:
+                  type: string
+  /products/top-rated:
+     get:
+      summary: products with the highest rating.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - products
+      responses:
+        '200':
+          description: products with the highest rating
+          content:
+            application/json:
+              schema:
+                type: object  
+  /products/new-arrivals:
+     get:
+      summary:  recently added products.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - products
+      responses:
+        '200':
+          description:  recently added products.
+          content:
+            application/json:
+              schema:
+                type: object  
+  /products/count-categories:
+     get:
+      summary: products with the highest number of products..
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - products
+      responses:
+        '200':
+          description: products with the highest number of products.
+          content:
+            application/json:
+              schema:
+                type: object  
+  /products/discounts:
+     get:
+      summary: count of products for each category.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - products
+      responses:
+        '200':
+          description: count of products for each category.
+          content:
+            application/json:
+              schema:
+                type: object  
+
+
+
+  /variant/update-variant/{variant_id}:
+    put:
+      parameters:
+        - in: path
+          name: variant_id
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          required: true
+          description: variant_id
+      summary: user  update.
+      description: Optional extended description in CommonMark or HTML.
+      tags : 
+        - variant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string 
+                discription:
+                  type: string    
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string                            
+  /variant/add-variant:
+    post:
+      summary: Add .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - variant
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string   
+  /variant/delete-variant/{variant_id}:
+    delete:
+      summary: delete .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - variant
+      parameters:
+        - in: path
+          name: variant_id
+          schema:
+            type: string
+          required: true
+          description: delete .
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /variant/list-variant:
+    get:
+      summary: delete .
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - variant
+      parameters:
+        - in: path
+          name: variant_id
+          schema:
+            type: string
+          required: true
+          description: delete .
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /variant/get-variant/{variant_id}:
+    get:
+      summary: variant.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - variant  
+      parameters:
+        - in: path
+          name: variant_id
+          schema:
+            type: string
+          required: true
+          description: Update category
+          
+      responses:
+        '200':
+          description: subcategory in a specific category.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: string
+  /variant/product/{product_id}:
+    get:
+      summary: variant.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - variant  
+      parameters:
+        - in: path
+          name: product_id
+          schema:
+            type: string
+          required: true
+          description: Update category
+          
+      responses:
+        '200':
+          description: subcategory in a specific category.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: string
+  /variant/list-variant/{product_id}:
+    get:
+      summary: variant.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - variant  
+      parameters:
+        - in: path
+          name: product_id
+          schema:
+            type: string
+          required: true
+          description: Update category
+          
+      responses:
+        '200':
+          description: subcategory in a specific category.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: string
+  /variant/count-stock/{product_id}:
+    get:
+      summary: variant.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - variant  
+      parameters:
+        - in: path
+          name: product_id
+          schema:
+            type: string
+          required: true
+          description: Update category
+          
+      responses:
+        '200':
+          description: subcategory in a specific category.
+          content:
+            application/json:
+              schema:
+                type: array
+              items:
+                type: string
+  /variant/low-quantity:
+    get:
+      summary: recently added variant.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - variant
+      responses:
+        '200':
+          description: low-quantity.
+          content:
+            application/json:
+              schema:
+                type: object 
+  /variant/high-price:
+    get:
+      summary: recently added variant.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - variant
+      responses:
+        '200':
+          description: high-price.
+          content:
+            application/json:
+              schema:
+                type: object 
+  /variant/multiple-variants:
+    get:
+      summary: recently added variant.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - variant
+      responses:
+        '200':
+          description: multiple-variant.
+          content:
+            application/json:
+              schema:
+                type: object 
+
+  /variant/active:
+    get:
+      summary: recently added variant.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - variant
+      responses:
+        '200':
+          description: active.
+          content:
+            application/json:
+              schema:
+                type: object 
+  /variant/count-products:
+    get:
+      summary: recently added variant.
+      description: Retrieves the number of categories that are currently active in the system.
+      tags:
+        - variant
+      responses:
+        '200':
+          description: count-products.
+          content:
+            application/json:
+              schema:
+                type: object 
+  /reviews/list-review:
+    get:
+      summary: List Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+
+  /reviews/get-review/{reviews_id}:
+    get:
+      parameters:
+        - in: path
+          name: reviews_id   # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: reviews_id
+      summary: List Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /reviews/create-review:
+    post:
+      summary: Add Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: string
+                user_id:
+                  type: string
+                rating:
+                  type: string
+                review:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /reviews/update-review/{reviews_id}:
+    put:
+      parameters:
+        - in: path
+          name: reviews_id   # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: reviews_id
+      summary: Update reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: string
+                user_id:
+                  type: string
+                rating:
+                  type: string
+                review:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /reviews/delete-review/{reviews_id}:
+    delete:
+      parameters:
+        - in: path
+          name: reviews_id   # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+      summary: Delete Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string 
+  /reviews/approveAndreject/{status}/{reviews_id}:
+    get:
+      parameters:
+        - name: status
+          in: path
+          name: status
+          required: true
+          schema:
+            type: string
+          enum: [approve, disapprove]  # Define the possible values for status
+          description: Approve or disapprove the review. Use 'approve' to approve, 'disapprove' to disapprove.
+        - name: reviews_id
+          in: path
+          name: reviews_id
+          required: true
+          schema:
+            type: string
+          description: ID of the review to approve or disapprove.
+      summary: Approve or disapprove a review.
+      description: Approve or disapprove a review based on the status parameter.
+      tags:
+        - Reviews
+      responses:
+        '200':    # status code
+          description: Review status updated successfully.
+          content:
+            application/json:
+              schema: 
+                type: object
+              properties:
+                success:
+                  type: boolean
+                  description: Indicates if the operation was successful.
+                message:
+                  type: string
+                  description: A message describing the result.
+                data:
+                  type: object
+                  description: Data containing information about the operation.
+  /reviews/user/{user_id}:
+    get:
+      parameters:
+        - in: path
+          name: user_id   # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: user_id
+      summary: List Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /reviews/product/{product_id}:
+    get:
+      parameters:
+        - in: path
+          name: product_id   # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+            minimum: 1
+          description: product_id
+      summary: List Product.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string 
+  /reviews/top-rated-products:
+    get:
+      summary: List TopRate Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /reviews/with-comments:
+    get:
+      summary: with comments Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+                  
+  /reviews/count-products:
+    get:
+      summary: count product of Reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+      - Reviews
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /orders/add-order:
+    post:
+      summary: Add orders.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - orders
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                users_id:
+                  type: string
+                variant_id:
+                  type: string
+                payment_id:
+                  type: string
+                amount:
+                  type: string
+                item:
+                type: array
+                    
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /orders/get-order/{order_id}:
+    get:
+      parameters:
+        - in: path
+          name: order_id
+          schema:
+            type: string
+          required: true
+          description: get orders.
+      summary: get products.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - orders
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string
+  /orders/update-order/{order_id}:
+    put:
+      summary: Update a orders
+      description: Update the review based on the provided orders ID and request body.
+      tags:
+        - orders
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+          description: The ID of the orders to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: string
+                
+      responses:
+        '200':
+          description: orders successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string  
+  /orders/delete-order/{order_id}:
+    delete:
+      summary: delete reviews.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - orders
+      parameters:
+        - in: path
+          name: order_id
+          schema:
+            type: string
+          required: true
+          description: delete orders.
+      requestBody:
+        required: true
+        content:
+           application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: string
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:  
+                  type: string 
+
+  /carts/get-cart/{cart_id}:
+    get:
+      parameters:
+        - in: path
+          name: cart_id
+          schema:
+            type: string
+          required: true
+          description: get carts.
+      summary: get carts.
+      description: Optional extended description in CommonMark or HTML.
+      tags:
+        - carts
+      responses:
+        '200':    # status code
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema: 
+                type: array
+                items: 
+                  type: string 
+  /carts/add-cart:
+    post:
+      summary: Add a new cart
+      description: Add a new cart with essential details including items.
+      tags:
+        - carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  format: objectid
+                  description: The ID of the user who owns the cart.
+                isActive:
+                  type: boolean
+                  description: Indicates whether the cart is active or not.
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                        format: objectid
+                        description: The ID of the product in the cart.
+                      quantity:
+                        type: number
+                        default: 1
+                        description: The quantity of the product.
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    format: objectid
+                    description: The ID of the created cart.
+                  user_id:
+                    type: string
+                    format: objectid
+                    description: The ID of the user who owns the cart.
+                  isActive:
+                    type: boolean
+                    description: Indicates whether the cart is active or not.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                          format: objectid
+                          description: The ID of the product in the cart.
+                        quntity:
+                          type: number
+                          default: 1
+                          description: The quantity of the product.
+  /carts/update-cart/{cart_id}:
+    put:
+      summary: Update a cart
+      description: Update an existing cart with essential details, including items.
+      tags:
+        - carts
+      parameters:
+        - in: path
+          name: cart_id
+          required: true
+          schema:
+            type: string
+            format: objectid
+          description: The ID of the cart to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  format: objectid
+                  description: The ID of the user who owns the cart (optional).
+                isActive:
+                  type: boolean
+                  description: Indicates whether the cart is active or not (optional).
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_id:
+                        type: string
+                        format: objectid
+                        description: The ID of the product in the cart.
+                      quantity:
+                        type: number
+                        description: The quantity of the product.
+              required:
+                - items
+      responses:
+        '200':
+          description: Updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cart_id:
+                    type: string
+                    format: objectid
+                    description: The ID of the updated cart.
+                  user_id:
+                    type: string
+                    format: objectid
+                    description: The ID of the user who owns the cart.
+                  isActive:
+                    type: boolean
+                    description: Indicates whether the cart is active or not.
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        product_id:
+                          type: string
+                          format: objectid
+                          description: The ID of the product in the cart.
+                        quantity:
+                          type: number
+                          description: The quantity of the product.
+        '404':
+          description: Cart not found
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+  /carts/delete-cart/{cart_id}/{product_id}:
+    delete:
+      summary: Delete a product from a cart
+      description: Removes a specific product from the cart.
+      tags:
+        - carts
+      parameters:
+        - in: path
+          name: cart_id
+          schema:
+            type: string
+            format: objectid
+          required: true
+          description: The ID of the cart to update.
+        - in: path
+          name: product_id
+          schema:
+            type: string
+            format: objectid
+          required: true
+          description: The ID of the product to remove.
+      responses:
+        '200':
+          description: Product removed from cart successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        format: objectid
+                      user_id:
+                        type: string
+                        format: objectid
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: string
+                              format: objectid
+                            quantity:
+                              type: number
+                      isActive:
+                        type: boolean
+                      createdAt:
+                        type: string
+                        format: date-time
+                      updatedAt:
+                        type: string
+                        format: date-time
+        '404':
+          description: Cart or product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+
+  
+
+  
+
+  

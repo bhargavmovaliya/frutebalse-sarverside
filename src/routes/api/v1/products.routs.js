@@ -25,42 +25,43 @@ routes.put(
     productsController.updateproducts
 )
 
-routes.delete(
-    '/delete-products/:product_id', 
+routes.delete('/delete-products/:product_id', 
     productsController.deleteproducts
 )
 
-routes.get(
-    '/products-list/category_id', 
-    productsController.prodactlistcategory
+routes.get('/getroductdata-by-subcategorydata/:subcategori_id',
+    productsController.getproducttawith
 )
 
-routes.get(
-    '/top-rated', 
-    productsController.toprated
-)
-routes.get(
-    '/arrivals', 
-    productsController.arrivals
-)
-routes.get(
-    '/discount', 
-    productsController.discount
-)
-routes.get(
-    '/searchName', 
+
+routes.get('/search',
     productsController.searchName
 )
-routes.get(
-    '/productsByCategory', 
+
+routes.get('/list-category/:categori_id',
     productsController.productsByCategory
 )
-routes.get(
-    '/productsBySubcategory', 
+
+routes.get('/list-subcategory/:subcategori_id',
     productsController.productsBySubcategory
+
 )
 
-routes.get('/searchprodact',
-    productsController.searchprodact
+routes.get('/top-rated',
+    productsController.topRate
 )
+
+routes.get( '/new-arrivals',
+    productsController.newArrivals
+)
+routes.get('/count-categories',
+    productsController.countCategories
+)
+routes.get('/discounts ',
+    productsController.discount
+)
+// routes.get('/discounts',
+//     productsController.discount
+// )
+
 module.exports = routes;
