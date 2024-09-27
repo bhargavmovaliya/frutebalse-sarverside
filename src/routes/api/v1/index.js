@@ -24,5 +24,3 @@ routes.use("/reviews",reviewRoute)
 routes.use("/orders",OrderRoute)
 
 module.exports = routes;
-
-
